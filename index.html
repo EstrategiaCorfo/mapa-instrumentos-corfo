@@ -17,12 +17,11 @@
 .chip.active{background:#0b4c95;color:#fff;border-color:#0b4c95}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
 .mapcard,.side{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 20px rgba(11,76,149,.05)}.mapcard{overflow:hidden}
-.stagebar{display:grid;grid-template-columns:repeat(4,1fr);margin:10px 12px 3px 248px;height:42px}
-.stage{position:relative;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:700}
-.stage:not(:last-child)::after{content:"";position:absolute;right:-18px;top:0;border-top:21px solid transparent;border-bottom:21px solid transparent;border-left:18px solid currentColor;z-index:3}
-.stage:not(:first-child)::before{content:"";position:absolute;left:0;top:0;border-top:21px solid transparent;border-bottom:21px solid transparent;border-left:18px solid #fff;z-index:4}
-.stage span{position:relative;z-index:5}.s1{background:#0872c4;color:#0872c4}.s2{background:#1b92d1;color:#1b92d1}.s3{background:#17a6ab;color:#17a6ab}.s4{background:#0a875e;color:#0a875e}
-.stage b{color:#fff;position:relative;z-index:6;display:flex;gap:8px;align-items:center}.stage svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+.stagebar-shell{margin:10px 12px 8px 248px}
+.stagebar-shell.bottom{margin-top:8px;margin-bottom:12px}
+.stagebar-svg{display:block;width:100%;height:auto;max-height:54px}
+.stagebar-svg .label{fill:#fff;font:700 14px Arial,Helvetica,sans-serif}
+.stagebar-svg .icon{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .benefit-row{display:grid;grid-template-columns:238px minmax(0,1fr);border-top:1px solid #e9eff5}
 .benefit-label{margin:8px;border-radius:12px;color:#fff;padding:14px;display:flex;align-items:center;min-height:96px}.benefit-label h3{margin:0;font-size:14px;line-height:1.2}.benefit-label p{margin:7px 0 0;font-size:10.5px;line-height:1.35;color:#eff8ff}
 .benefit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:30px;gap:5px;padding:11px 12px 12px}
@@ -36,7 +35,7 @@
 .kpititle{margin:13px 0 7px;font-size:10px;font-weight:700;text-transform:uppercase;color:#5d7489}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.kpi{background:#f5f8fb;border:1px solid #e0e8f0;border-radius:9px;text-align:center;padding:8px 5px}.kpi span{display:block;font-size:9px;color:#657d91}.kpi strong{display:block;font-size:16px;margin-top:3px}
 .obj{margin-top:12px;border:1px solid #e3ebf2;border-radius:11px;padding:11px;background:#fcfdfe}.obj b{font-size:10.5px;color:#526a80}.obj p{font-size:11px;line-height:1.45;color:#36516a;margin:6px 0 0;max-height:180px;overflow:auto}
 .kv{display:grid;grid-template-columns:78px 1fr;gap:6px 9px;border-top:1px solid #e6edf3;margin-top:12px;padding-top:11px;font-size:11px}.k{font-weight:700;color:#667e92}
-@media(max-width:1180px){.layout{grid-template-columns:1fr}.side{position:relative;top:0}}@media(max-width:760px){.stagebar{margin-left:10px}.benefit-row{grid-template-columns:1fr}.benefit-label{min-height:auto}.legend{grid-template-columns:1fr}}
+@media(max-width:1180px){.layout{grid-template-columns:1fr}.side{position:relative;top:0}}@media(max-width:760px){.stagebar-shell{margin-left:10px}.benefit-row{grid-template-columns:1fr}.benefit-label{min-height:auto}.legend{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -45,13 +44,81 @@
 <nav class="toolbar" id="filters"><strong>Filtrar por gerencia:</strong></nav>
 <div class="layout">
 <main class="mapcard">
-<div class="stagebar">
-<div class="stage s1"><b><svg viewBox="0 0 24 24"><path d="M12 20v-8M7 4h10M12 4c4 0 5 3 5 5s-2 5-5 5-5-2-5-5 1-5 5-5Z"/></svg>Gestación</b></div>
-<div class="stage s2"><b><svg viewBox="0 0 24 24"><path d="M12 20V6M12 6l5 5-5-2-5 2 5-5Z"/></svg>Inicio</b></div>
-<div class="stage s3"><b><svg viewBox="0 0 24 24"><path d="M4 20h16M7 20v-6M12 20V9M17 20V4"/></svg>Crecimiento</b></div>
-<div class="stage s4"><b><svg viewBox="0 0 24 24"><path d="m5 20 7-16 7 16H5ZM13 4l4 4"/></svg>Consolidación</b></div>
+<div class="stagebar-shell">
+<svg class="stagebar-svg" viewBox="0 0 1200 54" role="img" aria-label="Etapas: Gestación, Inicio, Crecimiento y Consolidación">
+  <polygon points="0,0 282,0 300,27 282,54 0,54" fill="#0B72C7"/>
+  <polygon points="304,0 582,0 600,27 582,54 304,54 322,27" fill="#2095D2"/>
+  <polygon points="604,0 882,0 900,27 882,54 604,54 622,27" fill="#20A5AA"/>
+  <polygon points="904,0 1200,0 1200,54 904,54 922,27" fill="#0A875E"/>
+
+  <g class="icon" transform="translate(112 27)">
+    <path d="M0 10V-2"/>
+    <path d="M0-2c-6 0-9-4-9-9 5 0 9 3 9 9Z"/>
+    <path d="M0-2c6 0 9-4 9-9-5 0-9 3-9 9Z"/>
+    <path d="M-7 11H7"/>
+  </g>
+  <text class="label" x="164" y="33" text-anchor="middle">Gestación</text>
+
+  <g class="icon" transform="translate(416 27)">
+    <path d="M0 11V-7"/>
+    <path d="M0-7 7 0 0-2-7 0Z"/>
+    <path d="M-4 6 0 4 4 6"/>
+  </g>
+  <text class="label" x="466" y="33" text-anchor="middle">Inicio</text>
+
+  <g class="icon" transform="translate(718 27)">
+    <path d="M-11 11H11"/>
+    <path d="M-8 11V5"/>
+    <path d="M0 11V-1"/>
+    <path d="M8 11V-8"/>
+  </g>
+  <text class="label" x="774" y="33" text-anchor="middle">Crecimiento</text>
+
+  <g class="icon" transform="translate(1018 27)">
+    <path d="M-11 11 0-10 11 11Z"/>
+    <path d="M2-10 7-5 10-7"/>
+  </g>
+  <text class="label" x="1080" y="33" text-anchor="middle">Consolidación</text>
+</svg>
 </div>
 <div id="map"></div>
+<div class="stagebar-shell bottom">
+<svg class="stagebar-svg" viewBox="0 0 1200 54" role="img" aria-label="Etapas: Gestación, Inicio, Crecimiento y Consolidación">
+  <polygon points="0,0 282,0 300,27 282,54 0,54" fill="#0B72C7"/>
+  <polygon points="304,0 582,0 600,27 582,54 304,54 322,27" fill="#2095D2"/>
+  <polygon points="604,0 882,0 900,27 882,54 604,54 622,27" fill="#20A5AA"/>
+  <polygon points="904,0 1200,0 1200,54 904,54 922,27" fill="#0A875E"/>
+
+  <g class="icon" transform="translate(112 27)">
+    <path d="M0 10V-2"/>
+    <path d="M0-2c-6 0-9-4-9-9 5 0 9 3 9 9Z"/>
+    <path d="M0-2c6 0 9-4 9-9-5 0-9 3-9 9Z"/>
+    <path d="M-7 11H7"/>
+  </g>
+  <text class="label" x="164" y="33" text-anchor="middle">Gestación</text>
+
+  <g class="icon" transform="translate(416 27)">
+    <path d="M0 11V-7"/>
+    <path d="M0-7 7 0 0-2-7 0Z"/>
+    <path d="M-4 6 0 4 4 6"/>
+  </g>
+  <text class="label" x="466" y="33" text-anchor="middle">Inicio</text>
+
+  <g class="icon" transform="translate(718 27)">
+    <path d="M-11 11H11"/>
+    <path d="M-8 11V5"/>
+    <path d="M0 11V-1"/>
+    <path d="M8 11V-8"/>
+  </g>
+  <text class="label" x="774" y="33" text-anchor="middle">Crecimiento</text>
+
+  <g class="icon" transform="translate(1018 27)">
+    <path d="M-11 11 0-10 11 11Z"/>
+    <path d="M2-10 7-5 10-7"/>
+  </g>
+  <text class="label" x="1080" y="33" text-anchor="middle">Consolidación</text>
+</svg>
+</div>
 <section class="legend"><div class="legend-title">Leyenda</div><div><h4>Color de las cajas = gerencia administradora</h4><div class="legenditems" id="legend"></div></div><div><h4>Lectura del mapa</h4><div style="font-size:11px;color:#4d667c;line-height:1.45">Las filas corresponden al tipo de beneficio principal. Los instrumentos transversales pueden abarcar más de una etapa. Seleccione una caja para ver la ficha completa.</div></div></section>
 </main>
 <aside class="side"><div class="sidehead"><h2>Ficha del instrumento</h2><p>Seleccione un instrumento para revisar objetivo, financiamiento y resultados 2025.</p></div><div class="sidebody" id="detail"><div class="empty">Haga clic sobre cualquier instrumento del mapa. Aquí aparecerá su ficha.</div></div></aside>
